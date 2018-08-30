@@ -22,6 +22,11 @@ class Life
         # apply rules here
         else
           sum = sum_of_neighbors(@grid, i, j)
+          if sum == 2 || sum == 3
+            new_grid[i][j] = 1
+          else
+            new_grid[i][j] = 0
+          end
         end
       end
     end
@@ -35,7 +40,8 @@ class Life
     sum = 0
     for row_index in -1..1
       for col_index in -1..1
-        sum+= grid[row][col] unless (row == current_row_index && col == current_col_index)
+        # get the sum but do not count the current cell
+        sum+= grid[current_row_index + row_index][current_col_index + col_index] unless (row_index == 0 && col_index == 0)
       end
     end
     return sum
@@ -51,8 +57,9 @@ class Life
       end
       print "\n"
     end
-    sleep 1
-    system "clear" or system "cls"
+    puts "--------------------------------"
+    # sleep 1
+    # system "clear" or system "cls"
   end
 
 
